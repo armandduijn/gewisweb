@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: GEWISweb 0.1.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-01-08 21:56+0100\n"
-"PO-Revision-Date: 2018-01-08 22:13+0100\n"
+"PO-Revision-Date: 2018-01-13 17:27+0100\n"
 "Last-Translator: Pieter Kokx <pieter@kokx.nl>\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -1373,7 +1373,7 @@ msgstr "Recente wijzigingen"
 
 #: module/Frontpage/view/frontpage/frontpage/home.phtml:9
 msgid "Studievereniging GEWIS"
-msgstr "Studie vereniging GEWIS"
+msgstr "Studievereniging GEWIS"
 
 #: module/Frontpage/view/frontpage/frontpage/home.phtml:11
 msgid ""
