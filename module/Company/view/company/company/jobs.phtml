@@ -35,46 +35,65 @@ $this->headTitle($category->getPluralName());
 </section>
 <section class="section">
     <div class="container">
-        <div class="job-list">
-            <div class="job-list-item list-item"
-                id="<?= $escaper->escapeHtmlAttr($job->getName()) ?>">
-                <h1 class="job-name"><a href="<?= $this->url('company/companyItem/joblist/job_item',
-                        ['slugCompanyName' => $company->getSlugName(),
-                         'slugJobName' => $job->getSlugName(), 'category' => $job->getCategory()->getSlug() ]) ?>"><?= $job->getName() ?></a>
-                    <small><?= $this->translate('job_at_company') ?>
-                        <a href="<?= $this->url('company/companyItem',
-                            ['slugCompanyName' => $company->getSlugName()]) ?>"><?= $company->getName() ?></a>
-                    </small>
-                </h1>
-                <div class="row">
-                    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1><?= $job->getName() ?></h1>
+                <ul class="details-list">
+                    <li>
                         <a href="<?= $this->url('company/companyItem', ['slugCompanyName' => $company->getSlugName()]) ?>">
-                            <img class="company-logo img-responsive center-block"
-                                src="<?= $this->fileUrl($company->getTranslationFromLocale($locale)->getLogo()); ?>"
-                                alt="<?= $this->translate('Logo of') ?> <?= $escaper->escapeHtmlAttr($company->getName()); ?>" />
+                            <?= $company->getName() ?>
                         </a>
-                        <div class="">
-                            <h4><?= $this->translate('Contact') ?></h4>
-                            <p class="job-contactName"><?= $job->getContactName() ?></p>
-                            <p class="job-phone">
-                                <a href="tel:<?= rawurlencode($job->getPhone()) ?>"><?= $job->getPhone() ?></a>
-                            </p>
-                            <p class="job-email">
-                                <a href="mailto:<?= rawurlencode($job->getEmail()) ?>"><?= $job->getEmail() ?></a>
-                            </p>
-                            <?php if (!is_null($job->getAttachment())): ?>
-                                <p class="job-vacancy">
-                                    <a href="<?= $this->fileUrl($job->getAttachment()); ?>"><?= $this->translate('View') . " ". $job->getCategory()->getName(); ?></a>
-                                </p>
-                            <?php endif; ?>
-                        </div>
+                    </li>
+                    <?php if (!is_null($job->getLocation())): ?>
+                        <li><?= $job->getLocation() ?></li>
+                    <?php endif; ?>
+                    <li>
+                        <?php if($job->getTimestamp()->isToday()): ?>
+                            <?= $this->translate('Posted today') ?>
+                        <?php else: ?>
+                            <?= sprintf($this->translate('Posted %s'), $job->getTimestamp()->diffForHumans()) ?>
+                        <?php endif ?>
+                        (<?= $job->getTimestamp()->format('d-m-Y') ?>)
+                    </li>
+                    <li>
+                        <span class="label label-default job-label" data-label="CSE" data-toggle="tooltip" title="Computer Science & Engineering">CSE</span>
+                        <span class="label label-default job-label" data-label="DS" data-toggle="tooltip" title="Data Science">DS</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="job-description text-justify markdown"><?= $this->markdown($job->getDescription()) ?></div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-image">
+                        <img
+                            src="<?= $this->fileUrl($company->getTranslationFromLocale($locale)->getLogo()); ?>"
+                            alt="<?= $escaper->escapeHtmlAttr($company->getName()); ?>" />
                     </div>
-                    <div class="col-md-9">
-                        <h4><?= $this->translate('Description') ?></h4>
-                        <div class="job-description text-justify markdown"><?= $this->markdown($job->getDescription()) ?></div>
+                    <div class="panel-heading">
+                        <span class="h4"><?= $this->translate('Contact') ?></span>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="icon-list">
+                            <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
+                            <dd><?= $job->getContactName() ?></dd>
+                            <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
+                            <dd><a href="tel:<?= rawurlencode($job->getPhone()) ?>"><?= $job->getPhone() ?></a></dd>
+                            <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
+                            <dd><a href="mailto:<?= rawurlencode($job->getEmail()) ?>"><?= $job->getEmail() ?></a></dd>
+                        </dl>
+                    </div>
+                    <div class="panel-footer panel-footer--links">
+                        <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank"><?= $this->translate('Download attachment') ?></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>

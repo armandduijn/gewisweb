@@ -199,3 +199,51 @@ a.card {
     min-width: 100px;
     max-width: 250px;
 }
+
+#job-search {
+    width: 250px;
+}
+
+dl.icon-list {
+    dt {
+        margin-right: 0.75em;
+        float: left;
+    }
+
+    dt, dd {
+        margin-bottom: 1em;
+    }
+}
+
+ul.details-list {
+    list-style: none;
+    margin: 0 0 2em;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+
+    li {
+        margin: 0;
+
+        &:after {
+            content: "|";
+            padding: 0 0.5em;
+        }
+
+        &:last-child:after {
+            content: "";
+        }
+    }
+}
+
+.panel-image {
+    margin: 0 0 1em;
+    height: 200px;
+
+    img {
+        margin: 0 auto;
+        max-height: 100%;
+        max-width: 100%;
+        display: block;
+    }
+}
