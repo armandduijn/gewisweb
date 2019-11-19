@@ -44,3 +44,20 @@ input {
         flex: 1;
     }
 }
+
+.input-group-inline {
+    display: flex;
+    flex-direction: row;
+
+    .form-control {
+        flex-grow: 1;
+    }
+
+    .btn {
+        margin-left: 1em;
+
+        .glyphicon {
+            margin-right: 0.25em;
+        }
+    }
+}
