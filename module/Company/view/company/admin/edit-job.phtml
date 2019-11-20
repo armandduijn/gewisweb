@@ -1,71 +1,3 @@
-<div class="row">
-    <div class="col-md-12">
-        <h3><?= $this->translate('Labels') ?></h3>
-        <p class="text-muted"><?= $this->translate('No labels have been added yet') ?></p>
-
-        <?php ob_start(); ?>
-            <a
-                href="#" title="<?= $this->translate('Remove label') ?>"
-                class="btn btn-default btn-trash align-middle"
-                data-id="__id__" data-text="__text__">
-                <span class="btn-text">__text__</span>
-                <span class="glyphicon glyphicon-trash small"></span>
-                <input type="hidden" name="labels[]" value="__id__" />
-            </a>
-        <?php $labelTemplate = ob_get_clean(); ?>
-        <div id="labels" data-template="<?= $this->escapeHtmlAttr($labelTemplate) ?>"></div>
-    </div>
-    <div class="col-md-6 form-group">
-        <label for="select-label">Label</label>
-        <div class="input-group input-group-inline">
-            <select name="select-labels" id="select-labels" class="form-control">
-                <option value="CSE">Computer Science & Engineering</option>
-                <option value="IAM">Industrial & Applied Mathematics</option>
-                <option value="DS">Data Science</option>
-            </select>
-            <button type="button" id="btn-labels" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus"></span><?= $this->translate('Add') ?>
-            </button>
-        </div>
-    </div>
-</div>
-<script>
-    $('#btn-labels').click(function () {
-        var $selectedOption = $('#select-labels option:selected');
-
-        var template = $('#labels').data('template');
-        template = template.replace(/__id__/g, $selectedOption.val());
-        template = template.replace(/__text__/g, $selectedOption.text());
-
-        // Remove option to prevent user from adding duplicate labels
-        $selectedOption.remove();
-
-        if ($('#select-labels option').length === 0) {
-            $(this).attr('disabled', 'disabled');
-        }
-
-        // Add label to list of added labels
-        $("#labels").append(template);
-    });
-
-    $('#labels').on('click', '.btn-trash', function (e) {
-        var option = $('<option />')
-            .attr('value', $(this).data('id'))
-            .text($(this).data('text'));
-
-        // Remove label from list of added labels
-        $(this).remove();
-
-        // Add option so that a user can re-add the label immediately
-        $('#select-labels').append(option);
-
-        if ($('#btn-labels').is('[disabled]')) {
-            $('#btn-labels').removeAttr('disabled');
-        }
-
-        return e.preventDefault();
-    });
-</script>
 <?php
 $form->setAttribute('class', 'form-horizontal');
 $form->prepare();
@@ -241,6 +173,125 @@ $element->setAttribute('class', 'form-control');
 </div>
 <?php endforeach;?>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr />
+        <h3><?= $this->translate('Labels') ?></h3>
+        <p id="labels-feedback--empty" class="text-muted" style="display: none;">
+            <?= $this->translate('No labels have been added yet') ?>
+        </p>
+        <?php ob_start(); ?>
+        <a
+                href="#" title="<?= $this->translate('Remove label') ?>"
+                class="btn btn-default btn-trash align-middle job-label"
+                data-id="__id__" data-text="__text__">
+            <span class="btn-text">__text__</span>
+            <span class="glyphicon glyphicon-trash small"></span>
+            <input type="hidden" name="labels[]" value="__id__" />
+        </a>
+        <?php $labelTemplate = ob_get_clean(); ?>
+        <div id="labels" data-template="<?= $this->escapeHtmlAttr($labelTemplate) ?>"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label for="select-label">Label</label>
+        <div class="input-group input-group-inline">
+            <select name="select-labels" id="select-labels" class="form-control">
+                <option value="CSE">Computer Science & Engineering</option>
+                <option value="IAM">Industrial & Applied Mathematics</option>
+                <option value="DS">Data Science</option>
+            </select>
+            <button type="button" id="btn-labels" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span><?= $this->translate('Add') ?>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    var LabelList = function ($list, $dropdown, $submitBtn, $feedbackEmpty, labelSelector) {
+        var _updateFeedback = function () {
+            console.log($(labelSelector, $list).length);
+            if ($(labelSelector, $list).length === 0) {
+                $feedbackEmpty.show();
+
+                return;
+            }
+
+            $feedbackEmpty.hide();
+        };
+
+        var _updateFormState = function () {
+            // If there are no labels left to add
+            if ($('option', $dropdown).length === 0) {
+                $submitBtn.attr('disabled', 'disabled');
+                return;
+            }
+
+            // Ensure that the submit button is enabled
+            $($submitBtn).removeAttr('disabled');
+        };
+
+        var _updateState = function () {
+            _updateFormState();
+            _updateFeedback();
+        }
+
+        var _removeLabel = function ($label) {
+            var option = $('<option />')
+                .attr('value', $label.data('id'))
+                .text($label.data('text'));
+
+            // Remove label from list of added labels
+            $label.remove();
+
+            // Add option so that a user can re-add the label immediately
+            $dropdown.append(option);
+
+            _updateState();
+        };
+
+        var _addLabel = function ($option) {
+            var template = $list.data('template');
+            template = template.replace(/__id__/g, $option.val());
+            template = template.replace(/__text__/g, $option.text());
+
+            // Remove option to prevent user from adding duplicate labels
+            $option.remove();
+
+            $list.append(template);
+
+            _updateState();
+        };
+
+        var _init = function () {
+            $submitBtn.click(function (e) {
+                _addLabel($('option:selected', $dropdown));
+
+                return e.preventDefault();
+            });
+
+            $list.on('click', labelSelector, function (e) {
+                _removeLabel($(this));
+
+                return e.preventDefault();
+            });
+
+            _updateState();
+        };
+
+        _init();
+    };
+
+    var labelList = new LabelList(
+        $('#labels'),
+        $('#select-labels'),
+        $('#btn-labels'),
+        $('#labels-feedback--empty'),
+        '.job-label'
+    );
+</script>
 
 <?php
 $submit = $form->get('submit');
