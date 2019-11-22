@@ -39,6 +39,15 @@ $this->headTitle($category->getPluralName());
             <div class="col-md-12">
                 <h1><?= $job->getName() ?></h1>
                 <ul class="details-list">
+                    <?php if (!$job->isActive()): ?>
+                    <li>
+                         <span
+                             class="label label-warning" data-toggle="tooltip"
+                             title="<?= sprintf($this->translate('This %s is not publicly visible'), strtolower($category->getName())) ?>">
+                             <?= $this->translate('Hidden') ?>
+                         </span>
+                    </li>
+                    <?php endif; ?>
                     <li>
                         <a href="<?= $this->url('company/companyItem', ['slugCompanyName' => $company->getSlugName()]) ?>">
                             <?= $company->getName() ?>
