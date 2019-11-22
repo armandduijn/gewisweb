@@ -78,18 +78,26 @@ $this->headTitle($category->getPluralName());
                     </div>
                     <div class="panel-body">
                         <dl class="icon-list">
-                            <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
-                            <dd><?= $job->getContactName() ?></dd>
-                            <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
-                            <dd><a href="tel:<?= rawurlencode($job->getPhone()) ?>"><?= $job->getPhone() ?></a></dd>
-                            <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
-                            <dd><a href="mailto:<?= rawurlencode($job->getEmail()) ?>"><?= $job->getEmail() ?></a></dd>
+                            <?php if (!empty($job->getContactName())): ?>
+                                <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
+                                <dd><?= $job->getContactName() ?></dd>
+                            <?php endif; ?>
+                            <?php if (!empty($job->getPhone())): ?>
+                                <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
+                                <dd><a href="tel:<?= rawurlencode($job->getPhone()) ?>"><?= $job->getPhone() ?></a></dd>
+                            <?php endif; ?>
+                            <?php if (!empty($job->getEmail())): ?>
+                                <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
+                                <dd><a href="mailto:<?= rawurlencode($job->getEmail()) ?>"><?= $job->getEmail() ?></a></dd>
+                            <?php endif; ?>
                         </dl>
                     </div>
-                    <div class="panel-footer panel-footer--links">
-                        <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank"><?= $this->translate('Download attachment') ?></a>
-                    </div>
                 </div>
+                <?php if (!is_null($job->getAttachment())): ?>
+                    <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank">
+                        <?= $this->translate('Download attachment') ?>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
