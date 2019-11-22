@@ -73,7 +73,13 @@ $this->headTitle($category->getPluralName());
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div class="job-description text-justify markdown"><?= $this->markdown($job->getDescription()) ?></div>
+                <?php if (empty($job->getDescription())): ?>
+                    <p><em><?= $this->translate('No description available.') ?></em></p>
+                <?php else: ?>
+                    <div class="job-description text-justify markdown">
+                        <?= $this->markdown($job->getDescription()) ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
