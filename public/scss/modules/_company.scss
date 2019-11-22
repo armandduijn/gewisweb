@@ -143,6 +143,16 @@
             padding: 0;
         }
     }
+
+
+    &.card-link {
+        flex-direction: row;
+
+        .card-footer {
+            padding: 0 0 0 1.5em;
+            margin: 0 0 0 auto;
+        }
+    }
 }
 
 a.card {
