@@ -21,6 +21,14 @@
                 <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
                 <dd><a href="mailto:<?= rawurlencode($email) ?>"><?= $email ?></a></dd>
             <?php endif; ?>
+            <?php if (!empty($website)): ?>
+                <dt><span class="glyphicon glyphicon-globe" title="<?= $this->translate('Website') ?>"></span></dt>
+                <dd><a href="<?= $website ?>" target="_blank"><?= $website ?></a></dd>
+            <?php endif; ?>
+            <?php if (!empty($address)): ?>
+                <dt><span class="glyphicon glyphicon-home" title="<?= $this->translate('Address') ?>"></span></dt>
+                <dd><?= nl2br($address) ?></dd>
+            <?php endif; ?>
         </dl>
     </div>
 </div>
