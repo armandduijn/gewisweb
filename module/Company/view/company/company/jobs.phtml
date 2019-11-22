@@ -43,7 +43,7 @@ $this->headTitle($category->getPluralName());
                     <li>
                          <span
                              class="label label-warning" data-toggle="tooltip"
-                             title="<?= sprintf($this->translate('This %s is not publicly visible'), strtolower($category->getName())) ?>">
+                             title="<?= sprintf($this->translate("This %s isn't publicly visible"), strtolower($category->getName())) ?>">
                              <?= $this->translate('Hidden') ?>
                          </span>
                     </li>
