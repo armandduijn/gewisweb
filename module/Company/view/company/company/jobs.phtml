@@ -82,32 +82,13 @@ $this->headTitle($category->getPluralName());
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <div class="panel panel-default panel-company">
-                    <div class="panel-image">
-                        <img
-                            src="<?= $this->fileUrl($company->getTranslationFromLocale($locale)->getLogo()); ?>"
-                            alt="<?= $escaper->escapeHtmlAttr($company->getName()); ?>" />
-                    </div>
-                    <div class="panel-heading">
-                        <span class="h4"><?= $this->translate('Contact') ?></span>
-                    </div>
-                    <div class="panel-body">
-                        <dl class="icon-list">
-                            <?php if (!empty($job->getContactName())): ?>
-                                <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
-                                <dd><?= $job->getContactName() ?></dd>
-                            <?php endif; ?>
-                            <?php if (!empty($job->getPhone())): ?>
-                                <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
-                                <dd><a href="tel:<?= rawurlencode($job->getPhone()) ?>"><?= $job->getPhone() ?></a></dd>
-                            <?php endif; ?>
-                            <?php if (!empty($job->getEmail())): ?>
-                                <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
-                                <dd><a href="mailto:<?= rawurlencode($job->getEmail()) ?>"><?= $job->getEmail() ?></a></dd>
-                            <?php endif; ?>
-                        </dl>
-                    </div>
-                </div>
+                <?= $this->partial('partial/company/company/contact.phtml', [
+                    'locale'  => $locale,
+                    'company' => $company,
+                    'contact' => $job->getContactName(),
+                    'phone'   => $job->getPhone(),
+                    'email'   => $job->getEmail(),
+                ]) ?>
                 <?php if (!is_null($job->getAttachment())): ?>
                     <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank">
                         <?= $this->translate('Download attachment') ?>

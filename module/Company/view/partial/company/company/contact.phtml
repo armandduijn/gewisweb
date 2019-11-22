@@ -1,0 +1,26 @@
+<div class="panel panel-default panel-company">
+    <div class="panel-image">
+        <img
+            src="<?= $this->fileUrl($company->getTranslationFromLocale($locale)->getLogo()); ?>"
+            alt="Logo" />
+    </div>
+    <div class="panel-heading">
+        <span class="h4"><?= $this->translate('Contact') ?></span>
+    </div>
+    <div class="panel-body">
+        <dl class="icon-list">
+            <?php if (!empty($contact)): ?>
+                <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
+                <dd><?= $contact ?></dd>
+            <?php endif; ?>
+            <?php if (!empty($phone)): ?>
+                <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
+                <dd><a href="tel:<?= rawurlencode($phone) ?>"><?= $phone ?></a></dd>
+            <?php endif; ?>
+            <?php if (!empty($email)): ?>
+                <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
+                <dd><a href="mailto:<?= rawurlencode($email) ?>"><?= $email ?></a></dd>
+            <?php endif; ?>
+        </dl>
+    </div>
+</div>
