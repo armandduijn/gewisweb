@@ -82,6 +82,15 @@ $this->headTitle($category->getPluralName());
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <?php if (!is_null($job->getAttachment())): ?>
+                            <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank">
+                                <?= $this->translate('Download attachment') ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
                 <?= $this->partial('partial/company/company/contact.phtml', [
                     'locale'  => $locale,
                     'company' => $company,
@@ -89,11 +98,6 @@ $this->headTitle($category->getPluralName());
                     'phone'   => $job->getPhone(),
                     'email'   => $job->getEmail(),
                 ]) ?>
-                <?php if (!is_null($job->getAttachment())): ?>
-                    <a href="<?= $this->fileUrl($job->getAttachment()) ?>" class="panel-footer__link--primary" target="_blank">
-                        <?= $this->translate('Download attachment') ?>
-                    </a>
-                <?php endif; ?>
             </div>
         </div>
     </div>
