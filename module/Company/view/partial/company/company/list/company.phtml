@@ -2,7 +2,7 @@
 // If multiple companies are on display, the title should redirect to the company page, else, it should redirect to the website
 $companyURL = $company->getTranslationFromLocale($locale)->getWebsite();
 
-$slogen = $company->getTranslationFromLocale($locale)->getSlogan();
+$slogan = $company->getTranslationFromLocale($locale)->getSlogan();
 
 ?>
 <div id="company-<?= $company->getId(); ?>">
@@ -10,7 +10,7 @@ $slogen = $company->getTranslationFromLocale($locale)->getSlogan();
         <div class="col-md-12">
             <h1><?= $company->getName() ?></h1>
             <?php if (!empty($slogan)): ?>
-                <p class="lead"><em><?= $slogen ?></em></p>
+                <p class="lead"><em><?= $slogan ?></em></p>
             <?php endif; ?>
         </div>
     </div>
