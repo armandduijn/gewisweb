@@ -214,17 +214,22 @@ a.card {
     width: 250px;
 }
 
-dl.icon-list {
-    dt {
-        margin-right: 0.75em;
-        float: left;
+table.table-contact-details {
+    tbody > tr > td {
+        vertical-align: top;
+
+        &:first-child {
+            padding-right: 0.75em;
+        }
     }
 
-    dt, dd {
-        margin-bottom: 1em;
+    tbody > tr {
+        > td {
+            padding-bottom: 1em;
+        }
 
-        &:last-child {
-            margin-bottom: 0;
+        &:last-child > td {
+            padding-bottom: 0;
         }
     }
 }

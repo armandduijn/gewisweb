@@ -8,27 +8,55 @@
         <span class="h4"><?= $this->translate('Contact') ?></span>
     </div>
     <div class="panel-body">
-        <dl class="icon-list">
+        <table class="table-contact-details">
+            <tbody>
             <?php if (!empty($contact)): ?>
-                <dt><span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span></dt>
-                <dd><?= $contact ?></dd>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-user" title="<?= $this->translate('Contact person') ?>"></span>
+                </td>
+                <td><?= $contact ?></td>
+            </tr>
             <?php endif; ?>
             <?php if (!empty($phone)): ?>
-                <dt><span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span></dt>
-                <dd><a href="tel:<?= rawurlencode($phone) ?>"><?= $phone ?></a></dd>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-earphone" title="<?= $this->translate('Telephone number') ?>"></span>
+                </td>
+                <td>
+                    <a href="tel:<?= rawurlencode($phone) ?>"><?= $phone ?></a>
+                </td>
+            </tr>
             <?php endif; ?>
             <?php if (!empty($email)): ?>
-                <dt><span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span></dt>
-                <dd><a href="mailto:<?= rawurlencode($email) ?>"><?= $email ?></a></dd>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-envelope" title="<?= $this->translate('Email address') ?>"></span>
+                </td>
+                <td>
+                    <a href="mailto:<?= rawurlencode($email) ?>"><?= $email ?></a>
+                </td>
+            </tr>
             <?php endif; ?>
             <?php if (!empty($website)): ?>
-                <dt><span class="glyphicon glyphicon-globe" title="<?= $this->translate('Website') ?>"></span></dt>
-                <dd><a href="<?= $website ?>" target="_blank"><?= $website ?></a></dd>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-globe" title="<?= $this->translate('Website') ?>"></span>
+                </td>
+                <td>
+                    <a href="<?= $website ?>" target="_blank"><?= $website ?></a>
+                </td>
+            </tr>
             <?php endif; ?>
             <?php if (!empty($address)): ?>
-                <dt><span class="glyphicon glyphicon-home" title="<?= $this->translate('Address') ?>"></span></dt>
-                <dd><?= nl2br($address) ?></dd>
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-home" title="<?= $this->translate('Address') ?>"></span>
+                </td>
+                <td><?= nl2br($address) ?></td>
+            </tr>
             <?php endif; ?>
-        </dl>
+            </tbody>
+        </table>
     </div>
 </div>
